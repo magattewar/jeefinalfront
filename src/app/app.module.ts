@@ -8,7 +8,16 @@ import { FooterComponent } from './footer/footer.component';
 import { AppRoutingModule } from './app-routing.module';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AccessDeniedComponent } from './access-denied/access-denied.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AccueilComponent } from './accueil/accueil.component';
+import { ClientComponent } from './client/client.component';
+import { ProduitComponent } from './produit/produit.component';
+import { PaiementComponent } from './paiement/paiement.component';
+import { FactureComponent } from './facture/facture.component';
+import { CommandeComponent } from './commande/commande.component';
+import { LigneCommandeComponent } from './ligne-commande/ligne-commande.component';
+import { EtatCommandeComponent } from './etat-commande/etat-commande.component';
+import { TokenInterceptorService } from './token-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -17,7 +26,15 @@ import { HttpClientModule } from '@angular/common/http';
     LoginComponent,
     FooterComponent,
     PageNotFoundComponent,
-    AccessDeniedComponent
+    AccessDeniedComponent,
+    AccueilComponent,
+    ClientComponent,
+    ProduitComponent,
+    PaiementComponent,
+    FactureComponent,
+    CommandeComponent,
+    LigneCommandeComponent,
+    EtatCommandeComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +42,11 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptorService,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -15,7 +15,14 @@ export class LoginService {
 
   saveToken(jwt){
     localStorage.setItem('token', jwt.accessToken)
-    localStorage.setItem('authorities', jwt.authorities)
+    localStorage.setItem('authorities', jwt.authorities[0].authority)
     localStorage.setItem('username', jwt.username)
+  }
+
+  logout()
+  {
+    localStorage.removeItem('token');
+    localStorage.removeItem('authorities');
+    localStorage.removeItem('username');
   }
 }

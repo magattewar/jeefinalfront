@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'projetniassfront';
+
+
+//   logout() {
+//     this.authenticationService.logout();
+//     this.router.navigate(['/login']);
+// }
 }

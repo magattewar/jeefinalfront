@@ -2,6 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import {tap} from 'rxjs/operators';
 import { Router } from '@angular/router';
+import {
+  HttpRequest,
+  HttpHandler,
+  HttpEvent,
+  HttpInterceptor
+} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -9,14 +15,14 @@ import { Router } from '@angular/router';
 export class TokenInterceptorService {
 
   constructor(/*private injector: Injector,*/ private router: Router){}
-  intercept(req, next) {
+  intercept(request: HttpRequest<any>, next: HttpHandler) {
 
     //const authService = this.injector.get(LoginService)
     //const token = authService.loggedIn();
     const token = localStorage.getItem('token');
     console.log(token);
     if(token !== 'undefined'){
-      req = req.clone(
+      request = request.clone(
       {
           setHeaders :{
             Authorization:`Bearer ${token}`
@@ -24,7 +30,7 @@ export class TokenInterceptorService {
       })
     }
     console.log('-----------------' + token);
-    return next.handle(req).pipe(tap(() => {},
+    return next.handle(request).pipe(tap(() => {},
       (err: any) => {
       if (err instanceof HttpErrorResponse) {
         if (err.status === 401) {

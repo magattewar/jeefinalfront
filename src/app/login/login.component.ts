@@ -20,16 +20,19 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    // if(this.loginService.local)
+    console.log(localStorage.getItem('authorities'));
+    if(localStorage.getItem('authorities') === 'ROLE_ADMIN')
+      this.router.navigate(['accueil']);
   }
 
   logon(){
     this.loginService.loginRequest(this.data)
     .subscribe(res => {
-      console.log(res);
+      console.log(res.body.authorities[0].authority);
       this.loginService.saveToken(res.body);
-      if(res.body.authorities[0].authority === 'ROLE_MEDECIN'){
-          this.router.navigate(['medecin']);
+      if(res.body.authorities[0].authority === 'ROLE_ADMIN'){
+          this.router.navigate(['accueil']);
       }
     },
     err => {

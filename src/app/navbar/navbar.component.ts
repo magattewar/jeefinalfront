@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { LoginService } from '../login.service';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -11,7 +12,11 @@ export class NavbarComponent implements OnInit {
   swaggerEnabled?: boolean;
   version: string;
 
+  constructor(private loginService : LoginService, private router: Router) { 
+    // constructor(private router: Router) { 
+    }
 
+  currentUser = localStorage.getItem("username");
 
   ngOnInit(): void {
   }
@@ -30,8 +35,8 @@ export class NavbarComponent implements OnInit {
 
   logout(): void {
     this.collapseNavbar();
-    // this.loginService.logout();
-    // this.router.navigate(['']);
+    this.loginService.logout();
+    this.router.navigate(['']);
   }
 
   toggleNavbar(): void {
