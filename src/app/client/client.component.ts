@@ -9,12 +9,11 @@ import { IClient } from '../model/client.model';
   styleUrls: ['./client.component.css'],
 })
 export class ClientComponent implements OnInit {
-
   clients?: IClient[];
 
   constructor(private router: Router, protected clientService: ClientService) {
     this.checkAuth();
-    this.loadAll()
+    this.loadAll();
   }
 
   checkAuth() {
@@ -24,27 +23,32 @@ export class ClientComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  loadAll(){
-    this.clientService.getClients().subscribe(res=>{
-      console.log(res);
-      this.clients = res;
-    },
-    err=>{
-      console.log(err);
-    });
+  loadAll() {
+    this.clientService.getClients().subscribe(
+      (res) => {
+        console.log(res);
+        this.clients = res;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
-  ngOnDestroy(): void {
-  }
+  ngOnDestroy(): void {}
 
   trackId(index: number, item: IClient): number {
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     return item.id!;
   }
 
-  registerChangeInClients(): void {
-   }
+  registerChangeInClients(): void {}
 
-  delete(client: IClient): void {
-    }
+  delete(client: IClient): void {}
+
+  editClient(client) {
+    // console.log(client.nom);
+    localStorage.setItem('clientupdate', client)
+    this.router.navigate(['editclient'])
+  }
 }

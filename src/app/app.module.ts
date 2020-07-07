@@ -18,6 +18,8 @@ import { CommandeComponent } from './commande/commande.component';
 import { LigneCommandeComponent } from './ligne-commande/ligne-commande.component';
 import { EtatCommandeComponent } from './etat-commande/etat-commande.component';
 import { TokenInterceptorService } from './token-interceptor.service';
+import { ClientUpdateComponent } from './client-update/client-update.component';
+import { ClientNewComponent } from './client-new/client-new.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { TokenInterceptorService } from './token-interceptor.service';
     FactureComponent,
     CommandeComponent,
     LigneCommandeComponent,
-    EtatCommandeComponent
+    EtatCommandeComponent,
+    ClientUpdateComponent,
+    ClientNewComponent
   ],
   imports: [
     BrowserModule,

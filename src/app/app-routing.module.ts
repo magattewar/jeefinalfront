@@ -13,6 +13,7 @@ import { FactureComponent } from './facture/facture.component';
 import { CommandeComponent } from './commande/commande.component';
 import { LigneCommandeComponent } from './ligne-commande/ligne-commande.component';
 import { EtatCommandeComponent } from './etat-commande/etat-commande.component';
+import { ClientNewComponent } from './client-new/client-new.component';
 
 const routes: Routes = [
   { path: 'login',  component: LoginComponent },
@@ -25,6 +26,9 @@ const routes: Routes = [
   { path: 'etat-commande', component: EtatCommandeComponent },
   { path: 'accueil', component: AccueilComponent },
   { path: 'navbar', component: NavbarComponent },
+  { path: 'newclient', component: ClientNewComponent },
+  { path: 'editclient',
+   component: ClientNewComponent },
   { path: '',   redirectTo: '/login', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent },
   { path: 'accessdenied', component: AccessDeniedComponent },

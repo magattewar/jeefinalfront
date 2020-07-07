@@ -1,45 +1,48 @@
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import {tap} from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor
+  HttpInterceptor,
 } from '@angular/common/http';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TokenInterceptorService {
-
-  constructor(/*private injector: Injector,*/ private router: Router){}
+  constructor(/*private injector: Injector,*/ private router: Router) {}
   intercept(request: HttpRequest<any>, next: HttpHandler) {
-
     //const authService = this.injector.get(LoginService)
     //const token = authService.loggedIn();
     const token = localStorage.getItem('token');
     console.log(token);
-    if(token !== 'undefined'){
-      request = request.clone(
-      {
-          setHeaders :{
-            Authorization:`Bearer ${token}`
-          }
-      })
+    if (token !== 'undefined') {
+      var method = request.url.split('/');
+      // console.log(method[method.length-1]);
+      if (method[method.length - 1] != 'login')
+        request = request.clone({
+          setHeaders: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
     }
     console.log('-----------------' + token);
-    return next.handle(request).pipe(tap(() => {},
-      (err: any) => {
-      if (err instanceof HttpErrorResponse) {
-        if (err.status === 401) {
-          this.router.navigate(['login']);
+    return next.handle(request).pipe(
+      tap(
+        () => {},
+        (err: any) => {
+          if (err instanceof HttpErrorResponse) {
+            if (err.status === 401) {
+              this.router.navigate(['login']);
+            } else if (err.status === 403) {
+              this.router.navigate(['accessdenied']);
+            }
+          }
         }
-        else if(err.status === 403){
-          this.router.navigate(['accessdenied']);
-        }
-      }
-      }));
+      )
+    );
   }
 }
