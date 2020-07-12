@@ -49,7 +49,8 @@ export class ClientNewComponent implements OnInit {
     // console.log(this.editForm.nom);
     this.clientService.addClient(this.editForm)
     .subscribe(res => {
-      
+      this.router.navigate(['client']);
+
     },
     err => {
       console.log(err);

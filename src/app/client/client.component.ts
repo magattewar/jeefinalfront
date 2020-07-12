@@ -10,6 +10,7 @@ import { IClient } from '../model/client.model';
 })
 export class ClientComponent implements OnInit {
   clients?: IClient[];
+  
 
   constructor(private router: Router, protected clientService: ClientService) {
     this.checkAuth();
@@ -17,8 +18,12 @@ export class ClientComponent implements OnInit {
   }
 
   checkAuth() {
-    if (localStorage.getItem('authorities') != 'ROLE_ADMIN')
+    if (sessionStorage.getItem('authorities') != 'ROLE_ADMIN')
       this.router.navigate(['accessdenied']);
+
+      // console.log(sessionStorage.getItem('token'))
+
+      
   }
 
   ngOnInit(): void {}
@@ -38,17 +43,26 @@ export class ClientComponent implements OnInit {
   ngOnDestroy(): void {}
 
   trackId(index: number, item: IClient): number {
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     return item.id!;
   }
 
   registerChangeInClients(): void {}
 
-  delete(client: IClient): void {}
+  delete(client: IClient): void {
+    this.clientService.deleteClient(client.id).subscribe(
+      (res) => {
+        console.log(res);
+        this.clients = res;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
 
   editClient(client) {
     // console.log(client.nom);
-    localStorage.setItem('clientupdate', client)
+    sessionStorage.setItem('clientupdate', client.id)
     this.router.navigate(['editclient'])
   }
 }

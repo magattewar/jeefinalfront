@@ -14,6 +14,9 @@ import { CommandeComponent } from './commande/commande.component';
 import { LigneCommandeComponent } from './ligne-commande/ligne-commande.component';
 import { EtatCommandeComponent } from './etat-commande/etat-commande.component';
 import { ClientNewComponent } from './client-new/client-new.component';
+import { ClientUpdateComponent } from './client-update/client-update.component';
+import { CommandeCreateComponent } from './commande-create/commande-create.component';
+import { ProduitCreateComponent } from './produit-create/produit-create.component';
 
 const routes: Routes = [
   { path: 'login',  component: LoginComponent },
@@ -26,9 +29,10 @@ const routes: Routes = [
   { path: 'etat-commande', component: EtatCommandeComponent },
   { path: 'accueil', component: AccueilComponent },
   { path: 'navbar', component: NavbarComponent },
+  { path: 'newcommande', component: CommandeCreateComponent },
   { path: 'newclient', component: ClientNewComponent },
-  { path: 'editclient',
-   component: ClientNewComponent },
+  { path: 'newproduit', component: ProduitCreateComponent },
+  { path: 'editclient', component: ClientUpdateComponent },
   { path: '',   redirectTo: '/login', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent },
   { path: 'accessdenied', component: AccessDeniedComponent },

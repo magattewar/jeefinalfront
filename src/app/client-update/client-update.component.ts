@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ClientService } from '../client.service';
+import { Client, IClient } from '../model/client.model';
 
 @Component({
   selector: 'app-client-update',
@@ -10,7 +11,8 @@ import { ClientService } from '../client.service';
 export class ClientUpdateComponent implements OnInit {
 
   editForm: any
-  client: any
+  idclient: any
+  client: IClient
 
   constructor(private router: Router, protected clientService: ClientService) { 
     this.editForm = {
@@ -21,15 +23,43 @@ export class ClientUpdateComponent implements OnInit {
       telephone: '',
       email: '',
     };
+
+    
+  }
+
+  updateForm(client: IClient): void {
+    this.editForm.id = client.id
+    this.editForm.nom = client.nom
+    this.editForm.prenom = client.prenom
+    this.editForm.adresse = client.adresse
+    this.editForm.telephone = client.telephone
+    this.editForm.email = client.email
   }
 
   ngOnInit(): void {
-    this.client = localStorage.getItem('clientupdate')
-    console.log(this.client.nom)    
+    this.idclient = localStorage.getItem('clientupdate')
+    // console.log(this.client)  
+    this.clientService.getClient(this.idclient).subscribe(
+      (res) => {
+        // console.log(res);
+        // this.client = res;
+        this.updateForm(res)
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
   save(){
-
+    this.clientService.editClient(this.editForm)
+    .subscribe(res => {
+      this.router.navigate(['client']);
+      
+    },
+    err => {
+      console.log(err);
+    });
   }
 
 }

@@ -1,0 +1,38 @@
+<app-navbar></app-navbar>
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" (ngSubmit)="save()">
+            <h2 id="jhi-produit-heading">Nouveau Produit</h2>
+
+            <div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_reference">Reference</label>
+                    <input type="text" class="form-control" name="reference" [(ngModel)]="editForm.reference" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_quantite">Quantite</label>
+                    <input type="number" class="form-control" name="quantite" [(ngModel)]="editForm.quantite"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_prixNormal">Prix Normal</label>
+                    <input type="number" class="form-control" [(ngModel)]="editForm.prixNormal" name="prixNormal"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_prixMinimum">Prix Minimum</label>
+                    <input type="number" class="form-control" name="prixMinimum" [(ngModel)]="editForm.prixMinimum" />
+                </div>
+            </div>
+
+            <div>
+
+                <button type="submit" id="save-entity" class="btn btn-primary">
+                    <i class="fa fa-save"></i>&nbsp;<span>Enregistrer</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

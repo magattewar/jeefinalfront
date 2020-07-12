@@ -21,8 +21,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     // if(this.loginService.local)
-    console.log(localStorage.getItem('authorities'));
-    if(localStorage.getItem('authorities') === 'ROLE_ADMIN')
+    console.log(sessionStorage.getItem('authorities'));
+    if(sessionStorage.getItem('authorities') === 'ROLE_ADMIN')
       this.router.navigate(['accueil']);
   }
 

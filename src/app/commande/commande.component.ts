@@ -12,11 +12,6 @@ import { CommandeService } from '../commande.service';
 export class CommandeComponent implements OnInit {
 
 
-  checkAuth() {
-    if (localStorage.getItem('authorities') != 'ROLE_ADMIN')
-      this.router.navigate(['accessdenied']);
-  }
-
   commandes?: ICommande[];
   eventSubscriber?: Subscription;
 
@@ -24,6 +19,13 @@ export class CommandeComponent implements OnInit {
 
     this.checkAuth();
   }
+
+
+  checkAuth() {
+    if (localStorage.getItem('authorities') != 'ROLE_ADMIN')
+      this.router.navigate(['accessdenied']);
+  }
+
 
   loadAll(): void {
     this.commandeService.getCommandes().subscribe(res=>{

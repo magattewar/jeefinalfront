@@ -17,8 +17,8 @@ export class TokenInterceptorService {
   intercept(request: HttpRequest<any>, next: HttpHandler) {
     //const authService = this.injector.get(LoginService)
     //const token = authService.loggedIn();
-    const token = localStorage.getItem('token');
-    console.log(token);
+    const token = sessionStorage.getItem('token');
+    // console.log(token);
     if (token !== 'undefined') {
       var method = request.url.split('/');
       // console.log(method[method.length-1]);
@@ -28,14 +28,21 @@ export class TokenInterceptorService {
             Authorization: `Bearer ${token}`,
           },
         });
+
+      // console.log('-----------------' + token);
     }
-    console.log('-----------------' + token);
+    // if(method[method.length - 1] != 'login'){
+
+    // }
     return next.handle(request).pipe(
       tap(
         () => {},
         (err: any) => {
           if (err instanceof HttpErrorResponse) {
             if (err.status === 401) {
+              sessionStorage.removeItem('token');
+              sessionStorage.removeItem('authorities');
+              sessionStorage.removeItem('username');
               this.router.navigate(['login']);
             } else if (err.status === 403) {
               this.router.navigate(['accessdenied']);

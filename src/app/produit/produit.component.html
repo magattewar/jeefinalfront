@@ -1,2 +1,76 @@
 <app-navbar></app-navbar>
-<p>produit works!</p>
+<div class="container">
+
+    
+    <div>
+        <h2 id="page-heading">
+            <span>Produits</span>
+    
+            <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-produit" routerLink="/newproduit">
+                <i class="fa fa-plus"></i>
+                <span>
+                Nouveau Produit
+                </span>
+            </button>
+        </h2>
+    
+        <div class="alert alert-warning" id="no-result" *ngIf="produits?.length === 0">
+            <span>La liste des produits est vide</span>
+        </div>
+    
+        <div class="table-responsive" id="entities" *ngIf="produits && produits.length > 0">
+            <table class="table table-striped" aria-describedby="page-heading">
+                <thead>
+                    <tr>
+                        <th scope="col" ><span>ID</span></th>
+                        <th scope="col" ><span>Reference</span></th>
+                        <th scope="col" ><span>Quantite</span></th>
+                        <th scope="col" ><span>Prix Normal</span></th>
+                        <th scope="col" ><span>Prix Minimum</span></th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let produit of produits">
+                        <td><a >{{ produit.id }}</a></td>
+                        <td>{{ produit.reference }}</td>
+                        <td>{{ produit.quantite }}</td>
+                        <td>{{ produit.prixNormal }}</td>
+                        <td>{{ produit.prixMinimum }}</td>
+                        <td class="text-right">
+                            <div class="btn-group">
+                                <button type="submit"
+                                    
+                                        class="btn btn-info btn-sm">
+                                    <i class="fa fa-eye"></i>
+                                    <span class="d-none d-md-inline">View</span>
+                                </button>
+    
+                                <button type="submit"
+                                        class="btn btn-primary btn-sm">
+                                    <i class="fa fa-pencil-alt"></i>
+                                    <span class="d-none d-md-inline">Edit</span>
+                                </button>
+    
+                                <button type="submit" 
+                                        (click)="delete(produit)"
+                                        class="btn btn-danger btn-sm">
+                                    <i class="fa fa-times"></i>
+                                    <span class="d-none d-md-inline">Delete</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+
+
+
+
+
+
+
+</div>

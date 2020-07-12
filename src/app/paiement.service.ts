@@ -11,7 +11,25 @@ export class PaiementService {
 
   constructor(public http: HttpClient) { }
 
-  public getClients(){
+  public getPaiements(){
     return this.http.get<IPaiement[]>(this.REST_API_SERVER + "/api/paiements/all")
+  }
+  
+  public getPaiement(id){
+    return this.http.get<IPaiement>(this.REST_API_SERVER + "/api/paiements/"+id)
+  }
+
+  public deletePaiement(id){
+    return this.http.delete<IPaiement[]>(this.REST_API_SERVER + "/api/paiements/"+id)
+  }
+
+  public addPaiement(data){
+    // var Paiement = new Paiement(null, data.nom, data.prenom, data.adresse, data.telephone, data.email, [])
+    return this.http.post<IPaiement[]>(this.REST_API_SERVER + "/api/paiements/add", data)
+  }
+
+  public editPaiement(data){
+    // var Paiement = new Paiement(null, data.nom, data.prenom, data.adresse, data.telephone, data.email, [])
+    return this.http.put<IPaiement[]>(this.REST_API_SERVER + "/api/paiements", data)
   }
 }

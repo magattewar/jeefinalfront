@@ -20,6 +20,14 @@ import { EtatCommandeComponent } from './etat-commande/etat-commande.component';
 import { TokenInterceptorService } from './token-interceptor.service';
 import { ClientUpdateComponent } from './client-update/client-update.component';
 import { ClientNewComponent } from './client-new/client-new.component';
+import { CommandeCreateComponent } from './commande-create/commande-create.component';
+import { CommandeUpdateComponent } from './commande-update/commande-update.component';
+import { ProduitCreateComponent } from './produit-create/produit-create.component';
+import { ProduitUpdateComponent } from './produit-update/produit-update.component';
+import { EtatCommandeCreateComponent } from './etat-commande-create/etat-commande-create.component';
+import { EtatFactureCreateComponent } from './etat-facture-create/etat-facture-create.component';
+import { EtatFactureUpdateComponent } from './etat-facture-update/etat-facture-update.component';
+import { PaiementCreateComponent } from './paiement-create/paiement-create.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +46,15 @@ import { ClientNewComponent } from './client-new/client-new.component';
     LigneCommandeComponent,
     EtatCommandeComponent,
     ClientUpdateComponent,
-    ClientNewComponent
+    ClientNewComponent,
+    CommandeCreateComponent,
+    CommandeUpdateComponent,
+    ProduitCreateComponent,
+    ProduitUpdateComponent,
+    EtatCommandeCreateComponent,
+    EtatFactureCreateComponent,
+    EtatFactureUpdateComponent,
+    PaiementCreateComponent
   ],
   imports: [
     BrowserModule,

@@ -14,4 +14,22 @@ export class CommandeService {
   public getCommandes(){
     return this.http.get<ICommande[]>(this.REST_API_SERVER + "/api/commandes/all")
   }
+  
+  public getCommande(id){
+    return this.http.get<ICommande>(this.REST_API_SERVER + "/api/commandes/"+id)
+  }
+
+  public deleteCommande(id){
+    return this.http.delete<ICommande[]>(this.REST_API_SERVER + "/api/commandes/"+id)
+  }
+
+  public addCommande(data){
+    // var Commande = new Commande(null, data.nom, data.prenom, data.adresse, data.telephone, data.email, [])
+    return this.http.post<ICommande[]>(this.REST_API_SERVER + "/api/commandes/add", data)
+  }
+
+  public editCommande(data){
+    // var Commande = new Commande(null, data.nom, data.prenom, data.adresse, data.telephone, data.email, [])
+    return this.http.put<ICommande[]>(this.REST_API_SERVER + "/api/commandes", data)
+  }
 }

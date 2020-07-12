@@ -14,15 +14,15 @@ export class LoginService {
   }
 
   saveToken(jwt){
-    localStorage.setItem('token', jwt.accessToken)
-    localStorage.setItem('authorities', jwt.authorities[0].authority)
-    localStorage.setItem('username', jwt.username)
+    sessionStorage.setItem('token', jwt.accessToken)
+    sessionStorage.setItem('authorities', jwt.authorities[0].authority)
+    sessionStorage.setItem('username', jwt.username)
   }
 
   logout()
   {
-    localStorage.removeItem('token');
-    localStorage.removeItem('authorities');
-    localStorage.removeItem('username');
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('authorities');
+    sessionStorage.removeItem('username');
   }
 }
