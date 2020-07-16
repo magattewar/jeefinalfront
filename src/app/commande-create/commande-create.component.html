@@ -38,9 +38,15 @@
                 </div> 
 
                 <div class="row">
-                    <ul>
+                    <ul style="list-style-type: none;">
                         <li *ngFor="let ligne of ligneCommande">
-                            <p>{{ligne.quantite}}  ..  {{ligne.produit.reference}}</p>
+                            <div role="alert" class="alert alert-success">nom: {{ligne.produit.reference}} , quantite: {{ligne.quantite}}
+                                <span style="text-align: left;">
+                                    <i (click)="moins(ligne)" class="fa fa-minus" style="margin-right: 10px; margin-left: 10px;"></i>
+                                    <i (click)="plus(ligne)" class="fa fa-plus" style="margin-right: 10px; margin-left: 10px;"></i>
+                                    <i (click)="supprimer(ligne)" class="fa fa-close" style="margin-right: 10px; margin-left: 10px;"></i>
+                                </span>
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -52,7 +58,7 @@
                         <option [ngValue]="produit.id" *ngFor="let produit of produits">{{produit.reference}}</option>
                     </select>
                     <input type="text" placeholder="nombre de produits" [(ngModel)]="nombre" class="form-control" name="nombre">
-                    <p>{{nombre}}</p>
+                    
                     <button class="btn btn-primary" type="button" (click)="addLigneCommande()" >Ajouter a la commande</button>
                 </div>
             </div>

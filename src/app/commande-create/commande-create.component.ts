@@ -87,19 +87,10 @@ export class CommandeCreateComponent implements OnInit {
 
     this.ligneCommande.forEach((ligne) => {});
 
-    // this.commande = {
-    //   id: '',
-    //   client: this.client,
-    //   date: formatDate(new Date(), 'MM/dd/yyyy', 'en'),
-    //   facture: null,
-    //   etat: this.etats[0],
-    //   lignescommandes: this.ligneCommande,
-    // };
-    this.editForm.client = this.client
-    this.editForm.date = formatDate(new Date(), 'MM/dd/yyyy', 'en')
-    this.editForm.lignescommandes = this.ligneCommande
-    this.editForm.etat = this.etats[0]
-
+    this.editForm.client = this.client;
+    this.editForm.date = formatDate(new Date(), 'MM/dd/yyyy', 'en');
+    this.editForm.lignescommandes = this.ligneCommande;
+    this.editForm.etat = this.etats[0];
 
     console.log(this.editForm);
     // this.commandeService.addCommande(this.commande)
@@ -118,22 +109,35 @@ export class CommandeCreateComponent implements OnInit {
   }
 
   addLigneCommande() {
-    // console.log(this.selectlignecommande);
-    if(this.nombre > 0 )
+    if (this.nombre > 0)
       this.produits.forEach((produit) => {
         if (produit.id == this.selectlignecommande) {
+          console.log(this.selectlignecommande);
           this.ligneCommande.push({
             commande: {},
             date: formatDate(new Date(), 'MM/dd/yyyy', 'en'),
             produit: produit,
             quantite: this.nombre,
           });
+          this.produits.splice(this.produits.indexOf(produit), 1)
         }
-
-        console.log(this.ligneCommande);
-
-        this.nombre = 0;
-        this.selectlignecommande = 0;
       });
+    console.log(this.ligneCommande);
+
+    this.nombre = 0;
+    this.selectlignecommande = 0;
+  }
+
+  moins(ligne) {
+    this.ligneCommande[this.ligneCommande.indexOf(ligne)].quantite--;
+  }
+
+  plus(ligne) {
+    this.ligneCommande[this.ligneCommande.indexOf(ligne)].quantite++;
+  }
+
+  supprimer(ligne) {
+    this.ligneCommande.splice(this.ligneCommande.indexOf(ligne), 1);
+    this.produits.push(ligne.produit)
   }
 }
