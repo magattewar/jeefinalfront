@@ -7,6 +7,9 @@ export interface ILigneCommande {
   date?: string;
   quantite?: number;
   produit?: IProduit;
+  designation?: string;
+  prixUnitaire?: number;
+  prixTotal?: number;
   commande?: ICommande;
 }
 

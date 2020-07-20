@@ -36,39 +36,34 @@
                         <td>{{ commande.date }}</td>
                         <td>
                             <div *ngIf="commande.facture">
-                                <a [routerLink]="['/facture', commande.facture?.id, 'view']" >{{ commande.facture?.id }}</a>
+                                <p>{{ commande.facture?.id }}</p>
                             </div>
                         </td>
                         <td>
                             <div *ngIf="commande.etat">
-                                <a [routerLink]="['/etat-commande', commande.etat?.id, 'view']" >{{ commande.etat?.id }}</a>
+                                <p>{{ commande.etat?.libelle }}</p>
                             </div>
                         </td>
                         <td>
                             <div *ngIf="commande.client">
-                                <a [routerLink]="['/client', commande.client?.id, 'view']" >{{ commande.client?.id }}</a>
+                                <p>{{ commande.client?.nom }} - {{ commande.client?.telephone }}</p>
                             </div>
                         </td>
                         <td class="text-right">
                             <div class="btn-group">
                                 <button type="submit"
-                                        [routerLink]="['/commande', commande.id, 'view']"
+                                        (click)="livrer(commande)"
+                                        *ngIf="commande.etat.id != 3"
                                         class="btn btn-info btn-sm">
-                                    <i class="fa fa-eye"></i>
-                                    <span class="d-none d-md-inline">View</span>
+                                    <i class="fa fa-ok"></i>
+                                    <span class="d-none d-md-inline">Livrer</span>
                                 </button>
     
-                                <button type="submit"
-                                        [routerLink]="['/commande', commande.id, 'edit']"
-                                        class="btn btn-primary btn-sm">
-                                    <i class="fa fa-pencil-alt"></i>
-                                    <span class="d-none d-md-inline">Edit</span>
-                                </button>
     
-                                <button type="submit" (click)="delete(commande)"
-                                        class="btn btn-danger btn-sm">
+                                <button *ngIf="commande.etat.id != 2" type="submit" (click)="valider(commande)"
+                                        class="btn btn-success btn-sm">
                                     <i class="fa fa-time"></i>
-                                    <span class="d-none d-md-inline">Delete</span>
+                                    <span class="d-none d-md-inline">Valider</span>
                                 </button>
                             </div>
                         </td>

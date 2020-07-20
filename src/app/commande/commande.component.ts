@@ -62,4 +62,24 @@ export class CommandeComponent implements OnInit {
     // modalRef.componentInstance.commande = commande;
   }
 
+  valider(commande:ICommande){
+    this.commandeService.validerCommande(commande.id).subscribe(res=>{
+      console.log(res);
+      this.commandes = res;
+    },
+    err=>{
+      console.log(err);
+    });
+  }
+
+  livrer(commande:ICommande){
+    this.commandeService.livrerCommande(commande.id).subscribe(res=>{
+      console.log(res);
+      this.commandes = res;
+    },
+    err=>{
+      console.log(err);
+    });
+  }
+
 }

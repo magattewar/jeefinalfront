@@ -53,6 +53,9 @@
 
                 <div class="form-group card">
                     <label for="ajoutLigneCommande" class="form-control-label" style="text-align: center;">Ligne Commande</label>
+                    <label for="ajoutLigneCommande" class="form-control-label" style="text-align: center;">Filtre</label>
+                    <input type="text" placeholder="Filtre produit" (change)="filtrerProduits()" [(ngModel)]="filtreproduit" class="form-control" name="filtreproduit">
+
                     <select name="lignecommande" id="" [(ngModel)]="selectlignecommande" class="form-control">
                         <option [ngValue]="0" selected>Selectionner le produit</option>
                         <option [ngValue]="produit.id" *ngFor="let produit of produits">{{produit.reference}}</option>

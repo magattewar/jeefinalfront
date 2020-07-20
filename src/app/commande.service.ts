@@ -14,6 +14,14 @@ export class CommandeService {
   public getCommandes(){
     return this.http.get<ICommande[]>(this.REST_API_SERVER + "/api/commandes/all")
   }
+
+  public validerCommande(id){
+    return this.http.get<ICommande[]>(this.REST_API_SERVER + "/api/commandes/valider/"+id)
+  }
+
+  public livrerCommande(id){
+    return this.http.get<ICommande[]>(this.REST_API_SERVER + "/api/commandes/livrer/"+id)
+  }
   
   public getCommande(id){
     return this.http.get<ICommande>(this.REST_API_SERVER + "/api/commandes/"+id)
