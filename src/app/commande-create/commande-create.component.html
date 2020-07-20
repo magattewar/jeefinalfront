@@ -62,6 +62,9 @@
                     </select>
                     <input type="text" placeholder="nombre de produits" [(ngModel)]="nombre" class="form-control" name="nombre">
                     
+                    <label for="ajoutLigneCommande" class="form-control-label" style="text-align: center;">Prix de vente</label>
+                    <input type="text" placeholder="prix de vente" [(ngModel)]="prixdevente" class="form-control" name="prixdevente">
+                    
                     <button class="btn btn-primary" type="button" (click)="addLigneCommande()" >Ajouter a la commande</button>
                 </div>
             </div>

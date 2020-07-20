@@ -25,6 +25,7 @@ export class CommandeCreateComponent implements OnInit {
   editForm: any;
   selectlignecommande: any;
   nombre: 0;
+  prixdevente: 0;
   selectclient: any = 0;
 
   // factures: IFacture[] = [];
@@ -90,7 +91,7 @@ export class CommandeCreateComponent implements OnInit {
   }
 
   formatNumber(num) {
-    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
+    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
   }
 
   save() {
@@ -111,19 +112,18 @@ export class CommandeCreateComponent implements OnInit {
     this.facture.document = this.myFile;
     this.facture.documentContentType = 'application/pdf';
 
-    this.facture.total = 0
-    this.ligneCommande.forEach(element => {
+    this.facture.total = 0;
+    this.ligneCommande.forEach((element) => {
       console.log(element.prixTotal);
-      
-      this.facture.total = this.facture.total + element.prixTotal
+
+      this.facture.total = this.facture.total + element.prixTotal;
       console.log(this.facture.total);
-      
     });
 
-    this.facture.tva = this.facture.total * 0.18
-    this.facture.ttc = this.facture.tva + this.facture.total
+    this.facture.tva = this.facture.total * 0.18;
+    this.facture.ttc = this.facture.tva + this.facture.total;
 
-    this.generatePdf()
+    this.generatePdf();
     // console.log(this.generatePdf());
 
     // console.log(this.editForm);
@@ -196,7 +196,9 @@ export class CommandeCreateComponent implements OnInit {
         // dataRow.push(row[column].toString());
         if (column == 'prixUnitaire' || column == 'prixTotal')
           dataRow.push({
-            text: row[column].toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.'),
+            text: row[column]
+              .toString()
+              .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.'),
             border: [false, false, false, true],
             margin: [0, 5, 0, 5],
             alignment: 'center',
@@ -236,8 +238,8 @@ export class CommandeCreateComponent implements OnInit {
             date: formatDate(new Date(), 'MM/dd/yyyy', 'en'),
             produit: produit,
             designation: produit.reference,
-            prixUnitaire: produit.prixNormal,
-            prixTotal: produit.prixNormal * this.nombre,
+            prixUnitaire: this.prixdevente >= produit.prixMinimum ? this.prixdevente : produit.prixNormal,
+            prixTotal: (this.prixdevente >= produit.prixMinimum ? this.prixdevente : produit.prixNormal) * this.nombre,
             quantite: this.nombre,
           });
           this.produits.splice(this.produits.indexOf(produit), 1);
@@ -245,16 +247,22 @@ export class CommandeCreateComponent implements OnInit {
       });
     console.log(this.ligneCommande);
 
-    this.nombre = 0;
+    this.nombre = null;
     this.selectlignecommande = 0;
   }
 
   moins(ligne) {
     this.ligneCommande[this.ligneCommande.indexOf(ligne)].quantite--;
+    this.ligneCommande[this.ligneCommande.indexOf(ligne)].prixTotal = 
+    this.ligneCommande[this.ligneCommande.indexOf(ligne)].quantite * 
+    this.ligneCommande[this.ligneCommande.indexOf(ligne)].prixUnitaire
   }
 
   plus(ligne) {
     this.ligneCommande[this.ligneCommande.indexOf(ligne)].quantite++;
+    this.ligneCommande[this.ligneCommande.indexOf(ligne)].prixTotal = 
+    this.ligneCommande[this.ligneCommande.indexOf(ligne)].quantite * 
+    this.ligneCommande[this.ligneCommande.indexOf(ligne)].prixUnitaire
   }
 
   supprimer(ligne) {
@@ -418,7 +426,6 @@ export class CommandeCreateComponent implements OnInit {
           ]),
         ],
 
-        
         '\n',
         '\n\n',
         {
@@ -502,7 +509,7 @@ export class CommandeCreateComponent implements OnInit {
                   margin: [0, 5, 0, 5],
                 },
                 {
-                  text: this.formatNumber(this.facture.ttc) + " Fcfa",
+                  text: this.formatNumber(this.facture.ttc) + ' Fcfa',
                   bold: true,
                   fontSize: 20,
                   alignment: 'right',
@@ -564,7 +571,33 @@ export class CommandeCreateComponent implements OnInit {
 
     // });
     //   let pdfDocGenerator = pdfMake.createPdf(documentDefinition);
-    pdfMake.createPdf(documentDefinition).open();
+    // pdfMake.createPdf(documentDefinition).open();
+    const pdfDocGenerator = pdfMake.createPdf(documentDefinition);
+    pdfDocGenerator.getBase64((blob) => {
+      // ...
+      this.facture.document = blob;
+      this.factureService.addFacture(this.facture).subscribe(
+        (res) => {
+          console.log(res);
+          // var blob = new Blob([res[0].document], { type: 'application/pdf' });
+          // var blobURL = URL.createObjectURL(blob);
+          // window.open(blobURL);
+          var byteCharacters = atob(res[0].document);
+          var byteNumbers = new Array(byteCharacters.length);
+          for (var i = 0; i < byteCharacters.length; i++) {
+            byteNumbers[i] = byteCharacters.charCodeAt(i);
+          }
+          var byteArray = new Uint8Array(byteNumbers);
+          var file = new Blob([byteArray], { type: 'application/pdf;base64' });
+          var fileURL = URL.createObjectURL(file);
+          window.open(fileURL);
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+    });
+
     // return new Promise(function(resolve, reject) {
     //   pdfDocGenerator.getBuffer(function (pdfBase64) {
     //     resolve(pdfBase64);
