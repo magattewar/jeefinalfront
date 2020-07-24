@@ -48,6 +48,16 @@ export class CommandeComponent implements OnInit {
     }
   }
 
+  annuler(commande){
+    this.commandeService.annuler(commande).subscribe(res=>{
+      // console.log(res);
+      this.commandes = res;
+    },
+    err=>{
+      console.log(err);
+    });
+  }
+
   trackId(index: number, item: ICommande): number {
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     return item.id!;
@@ -71,6 +81,7 @@ export class CommandeComponent implements OnInit {
       console.log(err);
     });
   }
+
 
   livrer(commande:ICommande){
     this.commandeService.livrerCommande(commande.id).subscribe(res=>{

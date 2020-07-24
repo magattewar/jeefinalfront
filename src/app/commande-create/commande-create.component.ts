@@ -24,8 +24,8 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 export class CommandeCreateComponent implements OnInit {
   editForm: any;
   selectlignecommande: any;
-  nombre: 0;
-  prixdevente: 0;
+  nombre: any = 0;
+  prixdevente: any = 0;
   selectclient: any = 0;
 
   // factures: IFacture[] = [];
@@ -123,22 +123,13 @@ export class CommandeCreateComponent implements OnInit {
     this.facture.tva = this.facture.total * 0.18;
     this.facture.ttc = this.facture.tva + this.facture.total;
 
-    this.generatePdf();
     // console.log(this.generatePdf());
 
     // console.log(this.editForm);
 
     // this.commandeService.addCommande(this.commande)
-    // this.commandeService.addCommande(this.editForm).subscribe(
-    //   (res) => {
-    //     console.log('resultat');
 
-    //     console.log(res);
-    //   },
-    //   (err) => {
-    //     console.log(err);
-    //   }
-    // );
+    this.generatePdf();
 
     // this.factureService.addFacture(this.facture).subscribe(
     //   (res) => {
@@ -228,18 +219,28 @@ export class CommandeCreateComponent implements OnInit {
     };
   }
 
+  isNumber(n) {
+    return /^-?[\d.]+(?:e-?\d+)?$/.test(n);
+  }
+
   addLigneCommande() {
     if (this.nombre > 0)
       this.produits.forEach((produit) => {
         if (produit.id == this.selectlignecommande) {
           console.log(this.selectlignecommande);
+          if (
+            !this.isNumber(this.prixdevente) ||
+            this.prixdevente < produit.prixMinimum
+          )
+            this.prixdevente = produit.prixNormal;
+
           this.ligneCommande.push({
             commande: {},
             date: formatDate(new Date(), 'MM/dd/yyyy', 'en'),
             produit: produit,
             designation: produit.reference,
-            prixUnitaire: this.prixdevente >= produit.prixMinimum ? this.prixdevente : produit.prixNormal,
-            prixTotal: (this.prixdevente >= produit.prixMinimum ? this.prixdevente : produit.prixNormal) * this.nombre,
+            prixUnitaire: this.prixdevente,
+            prixTotal: this.prixdevente * this.nombre,
             quantite: this.nombre,
           });
           this.produits.splice(this.produits.indexOf(produit), 1);
@@ -253,16 +254,16 @@ export class CommandeCreateComponent implements OnInit {
 
   moins(ligne) {
     this.ligneCommande[this.ligneCommande.indexOf(ligne)].quantite--;
-    this.ligneCommande[this.ligneCommande.indexOf(ligne)].prixTotal = 
-    this.ligneCommande[this.ligneCommande.indexOf(ligne)].quantite * 
-    this.ligneCommande[this.ligneCommande.indexOf(ligne)].prixUnitaire
+    this.ligneCommande[this.ligneCommande.indexOf(ligne)].prixTotal =
+      this.ligneCommande[this.ligneCommande.indexOf(ligne)].quantite *
+      this.ligneCommande[this.ligneCommande.indexOf(ligne)].prixUnitaire;
   }
 
   plus(ligne) {
     this.ligneCommande[this.ligneCommande.indexOf(ligne)].quantite++;
-    this.ligneCommande[this.ligneCommande.indexOf(ligne)].prixTotal = 
-    this.ligneCommande[this.ligneCommande.indexOf(ligne)].quantite * 
-    this.ligneCommande[this.ligneCommande.indexOf(ligne)].prixUnitaire
+    this.ligneCommande[this.ligneCommande.indexOf(ligne)].prixTotal =
+      this.ligneCommande[this.ligneCommande.indexOf(ligne)].quantite *
+      this.ligneCommande[this.ligneCommande.indexOf(ligne)].prixUnitaire;
   }
 
   supprimer(ligne) {
@@ -579,10 +580,15 @@ export class CommandeCreateComponent implements OnInit {
       this.factureService.addFacture(this.facture).subscribe(
         (res) => {
           console.log(res);
+
+          this.editForm.facture = res;
+
           // var blob = new Blob([res[0].document], { type: 'application/pdf' });
           // var blobURL = URL.createObjectURL(blob);
           // window.open(blobURL);
-          var byteCharacters = atob(res[0].document);
+
+          // pour afficher le fichier pdf
+          var byteCharacters = atob(res.document);
           var byteNumbers = new Array(byteCharacters.length);
           for (var i = 0; i < byteCharacters.length; i++) {
             byteNumbers[i] = byteCharacters.charCodeAt(i);
@@ -591,6 +597,15 @@ export class CommandeCreateComponent implements OnInit {
           var file = new Blob([byteArray], { type: 'application/pdf;base64' });
           var fileURL = URL.createObjectURL(file);
           window.open(fileURL);
+
+          this.commandeService.addCommande(this.editForm).subscribe(
+            (res) => {
+              this.router.navigate(['commande']);
+            },
+            (err) => {
+              console.log(err);
+            }
+          );
         },
         (err) => {
           console.log(err);

@@ -29,6 +29,7 @@ import { EtatFactureCreateComponent } from './etat-facture-create/etat-facture-c
 import { EtatFactureUpdateComponent } from './etat-facture-update/etat-facture-update.component';
 import { PaiementCreateComponent } from './paiement-create/paiement-create.component';
 import { CommandeDetailsComponent } from './commande-details/commande-details.component';
+import { ChartsComponent } from './charts/charts.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { CommandeDetailsComponent } from './commande-details/commande-details.co
     EtatFactureCreateComponent,
     EtatFactureUpdateComponent,
     PaiementCreateComponent,
-    CommandeDetailsComponent
+    CommandeDetailsComponent,
+    ChartsComponent
   ],
   imports: [
     BrowserModule,

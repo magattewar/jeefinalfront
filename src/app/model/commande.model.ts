@@ -6,6 +6,7 @@ import { IClient } from './client.model';
 export interface ICommande {
   id?: number;
   date?: string;
+  annule?: boolean;
   facture?: IFacture;
   etat?: IEtatCommande;
   lignescommandes?: ILigneCommande[];

@@ -1,0 +1,7 @@
+<p>Voici le graphe des ventes realisees</p>
+<label  class="form-control-label" style="text-align: center;">Selectionner le type de graphe</label>
+
+<select name="lignecommande" (change)="renderChart()" id="" [(ngModel)]="charType" class="form-control">
+    <option [ngValue]="type" *ngFor="let type of types">{{type}}</option>
+</select>
+<div id="chartContainer" style="height: 370px; width: 100%;"></div>
