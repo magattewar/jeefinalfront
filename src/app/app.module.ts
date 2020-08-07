@@ -31,6 +31,9 @@ import { PaiementCreateComponent } from './paiement-create/paiement-create.compo
 import { CommandeDetailsComponent } from './commande-details/commande-details.component';
 import { ChartsComponent } from './charts/charts.component';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from './material.module';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,7 +61,10 @@ import { ChartsComponent } from './charts/charts.component';
     EtatFactureUpdateComponent,
     PaiementCreateComponent,
     CommandeDetailsComponent,
-    ChartsComponent
+    ChartsComponent,
+    BrowserModule,
+    BrowserAnimationsModule, 
+    MaterialModule,
   ],
   imports: [
     BrowserModule,

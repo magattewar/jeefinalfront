@@ -40,10 +40,10 @@
                         <td class="text-right">
                              <div class="btn-group">
                                 <button type="submit"
-                                        [routerLink]="['/client', client.id, 'view']"
+                                        (click)=commander(client)
                                         class="btn btn-info btn-sm">
                                     <i class="fa fa-eye"></i>
-                                    <span class="d-none d-md-inline">View</span>
+                                    <span class="d-none d-md-inline">Commande</span>
                                 </button>
     
                                 <button type="submit"

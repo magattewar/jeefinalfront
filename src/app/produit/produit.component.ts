@@ -49,4 +49,10 @@ produits?: IProduit[]
     );
   }
 
+  edit(produit: IProduit){
+    localStorage.setItem("updateproduit", produit.id+"")
+
+    this.router.navigate(['updateproduit']);
+  }
+
 }

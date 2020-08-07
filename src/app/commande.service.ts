@@ -38,7 +38,7 @@ export class CommandeService {
 
   public editCommande(data){
     // var Commande = new Commande(null, data.nom, data.prenom, data.adresse, data.telephone, data.email, [])
-    return this.http.put<ICommande[]>(this.REST_API_SERVER + "/api/commandes", data)
+    return this.http.post<ICommande[]>(this.REST_API_SERVER + "/api/commandes/edit", data)
   }
 
   public annuler(data){

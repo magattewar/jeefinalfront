@@ -6,7 +6,10 @@ export interface IFacture {
   date?: string;
   documentContentType?: string;
   document?: any;
+  paiements?: any
+  paye?: any
   total?: number,
+  restant?: number,
   tva?: number,
   ttc?: number,
   commande?: ICommande;

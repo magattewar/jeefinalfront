@@ -62,7 +62,12 @@ export class ClientComponent implements OnInit {
 
   editClient(client) {
     // console.log(client.nom);
-    sessionStorage.setItem('clientupdate', client.id)
+    localStorage.setItem('clientupdate', client.id+"")
     this.router.navigate(['editclient'])
+  }
+
+  commander(client: IClient){
+    localStorage.setItem("idclientcommande", client.id+"")
+    this.router.navigate(['newcommande'])
   }
 }

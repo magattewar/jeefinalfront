@@ -10,7 +10,10 @@ import { Router } from '@angular/router';
 export class ProduitCreateComponent implements OnInit {
   editForm: any;
 
-  constructor(private router: Router, protected produitService: ProduitService) {
+  constructor(
+    private router: Router,
+    protected produitService: ProduitService
+  ) {
     this.editForm = {
       id: '',
       reference: '',
@@ -22,17 +25,16 @@ export class ProduitCreateComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  save(){
+  save() {
     // console.log(this.editForm.nom);
-    this.produitService.addProduit(this.editForm)
-    .subscribe(res => {
-      this.router.navigate(['produit']);
-
-    },
-    err => {
-      console.log(err);
-    });
+    if (this.editForm.prixNormal >= this.editForm.prixMinimum)
+      this.produitService.addProduit(this.editForm).subscribe(
+        (res) => {
+          this.router.navigate(['produit']);
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
   }
-  
-
 }

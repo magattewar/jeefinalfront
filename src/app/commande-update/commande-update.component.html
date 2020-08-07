@@ -1,1 +1,79 @@
-<p>commande-update works!</p>
+<app-navbar></app-navbar>
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()">
+            <h2 id="jhi-commande-heading">Commande</h2>
+
+            <div>
+                
+
+                <!-- <div class="form-group">
+                    <label class="form-control-label" for="field_date">Date</label>
+                    <input type="text" class="form-control" name="date" id="field_date"
+                           formControlName="date"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_facture">Facture</label>
+                    <select class="form-control" id="field_facture" name="facture" formControlName="facture">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="factureOption.id === editForm.get('facture')!.value?.id ? editForm.get('facture')!.value : factureOption" *ngFor="let factureOption of factures;">{{ factureOption.id }}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_etat">Etat</label>
+                    <select class="form-control" id="field_etat" name="etat" formControlName="etat">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="etatCommandeOption.id === editForm.get('etat')!.value?.id ? editForm.get('etat')!.value : etatCommandeOption" *ngFor="let etatCommandeOption of etats;">{{ etatCommandeOption.id }}</option>
+                    </select>
+                </div> -->
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_client">Client</label>
+                    <select class="form-control" id="field_client" name="client" [(ngModel)]="selectclient">
+                        <option [ngValue]="0">Selectionner le client</option>
+                        <option [ngValue]="clientOption.id" *ngFor="let clientOption of clients;">{{ clientOption.nom }}   {{clientOption.telephone}}</option>
+                    </select>
+                </div> 
+
+                <div class="row">
+                    <ul style="list-style-type: none;">
+                        <li *ngFor="let ligne of ligneCommande">
+                            <div role="alert" class="alert alert-success">nom: {{ligne.produit.reference}} , quantite: {{ligne.quantite}}
+                                <span style="text-align: left;">
+                                    <i (click)="moins(ligne)" class="fa fa-minus" style="margin-right: 10px; margin-left: 10px;"></i>
+                                    <i (click)="plus(ligne)" class="fa fa-plus" style="margin-right: 10px; margin-left: 10px;"></i>
+                                    <i (click)="supprimer(ligne)" class="fa fa-close" style="margin-right: 10px; margin-left: 10px;"></i>
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="form-group card">
+                    <label for="ajoutLigneCommande" class="form-control-label" style="text-align: center;">Ligne Commande</label>
+                    <label for="ajoutLigneCommande" class="form-control-label" style="text-align: center;">Filtre</label>
+                    <input type="text" placeholder="Filtre produit" (change)="filtrerProduits()" [(ngModel)]="filtreproduit" class="form-control" name="filtreproduit">
+
+                    <select name="lignecommande" id="" [(ngModel)]="selectlignecommande" class="form-control">
+                        <option [ngValue]="0" selected>Selectionner le produit</option>
+                        <option [ngValue]="produit.id" *ngFor="let produit of produits">{{produit.reference}}</option>
+                    </select>
+                    <input type="text" placeholder="nombre de produits" [(ngModel)]="nombre" class="form-control" name="nombre">
+                    
+                    <label for="ajoutLigneCommande" class="form-control-label" style="text-align: center;">Prix de vente</label>
+                    <input type="text" placeholder="prix de vente" [(ngModel)]="prixdevente" class="form-control" name="prixdevente">
+                    
+                    <button class="btn btn-primary" type="button" (click)="addLigneCommande()" >Ajouter a la commande</button>
+                </div>
+            </div>
+
+            <div>
+                <button type="submit" id="save-entity"  class="btn btn-primary">
+                    <i class="fa fa-save"></i>&nbsp;<span>Enregistrer</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

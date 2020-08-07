@@ -17,6 +17,8 @@ import { ClientNewComponent } from './client-new/client-new.component';
 import { ClientUpdateComponent } from './client-update/client-update.component';
 import { CommandeCreateComponent } from './commande-create/commande-create.component';
 import { ProduitCreateComponent } from './produit-create/produit-create.component';
+import { CommandeUpdateComponent } from './commande-update/commande-update.component';
+import { ProduitUpdateComponent } from './produit-update/produit-update.component';
 
 const routes: Routes = [
   { path: 'login',  component: LoginComponent },
@@ -30,9 +32,11 @@ const routes: Routes = [
   { path: 'accueil', component: AccueilComponent },
   { path: 'navbar', component: NavbarComponent },
   { path: 'newcommande', component: CommandeCreateComponent },
+  { path: 'updatecommande', component: CommandeUpdateComponent },
   { path: 'newclient', component: ClientNewComponent },
   { path: 'newproduit', component: ProduitCreateComponent },
   { path: 'editclient', component: ClientUpdateComponent },
+  { path: 'updateproduit', component: ProduitUpdateComponent },
   { path: '',   redirectTo: '/login', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent },
   { path: 'accessdenied', component: AccessDeniedComponent },

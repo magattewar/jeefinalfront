@@ -1,6 +1,77 @@
 <app-navbar></app-navbar>
 <div class="container">
+  <div
+    class="alert alert-warning"
+    id="no-result"
+    *ngIf="factures?.length === 0"
+  >
+    <span>Aucune facture</span>
+  </div>
 
-    <p>facture works!</p>
+  <div
+    class="table-responsive"
+    id="entities"
+    *ngIf="factures && factures.length > 0"
+  >
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span>ID</span></th>
+          <th scope="col"><span>Date</span></th>
+          <th scope="col"><span>Document</span></th>
+          <th scope="col"><span>Montant Total</span></th>
+          <th scope="col">Montant Restant</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let facture of factures">
+          <td>
+            <a [routerLink]="['/facture', facture.id, 'view']">{{
+              facture.id
+            }}</a>
+          </td>
+          <td>{{ facture.date }}</td>
+          <td>
+            <a *ngIf="facture.document" (click)="imprimerFacture(facture)"
+              >open</a
+            >
+            <span *ngIf="facture.document">{{
+              facture.documentContentType
+            }}</span>
+          </td>
+          <td>{{ facture.ttc }}</td>
+          <td>{{ facture.restant }}</td>
+
+          <td class="text-right">
+            <div class="btn-group">
+              <button
+                (click)="imprimerFacture(facture)"
+                class="btn btn-info btn-sm"
+              >
+                <i class="fa fa-eye"></i>
+                <span class="d-none d-md-inline">Imprimer</span>
+              </button>
+
+              <button
+                (click)="paiement(facture)"
+                class="btn btn-primary btn-sm"
+              >
+                <i class="fa fa-pensil-alt"></i>
+                <span class="d-none d-md-inline">Paiement</span>
+              </button>
+
+              <button
+                type="submit"
+                (click)="delete(facture)"
+                class="btn btn-danger btn-sm"
+              >
+                <i class="fa fa-times"></i>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
-

@@ -82,6 +82,11 @@ export class CommandeComponent implements OnInit {
     });
   }
 
+  editer(commande:ICommande){
+    localStorage.setItem("idcommande", commande.id+"")
+    this.router.navigate(['updatecommande']);
+  }
+
 
   livrer(commande:ICommande){
     this.commandeService.livrerCommande(commande.id).subscribe(res=>{

@@ -37,13 +37,14 @@ export class ClientUpdateComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.idclient = localStorage.getItem('clientupdate')
+    // this.idclient = localStorage.getItem('clientupdate')
     // console.log(this.client)  
-    this.clientService.getClient(this.idclient).subscribe(
+    this.clientService.getClient(localStorage.getItem("clientupdate")).subscribe(
       (res) => {
         // console.log(res);
         // this.client = res;
-        this.updateForm(res)
+        // this.updateForm(res)
+        this.editForm = res
       },
       (err) => {
         console.log(err);

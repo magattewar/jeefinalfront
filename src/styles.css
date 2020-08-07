@@ -1,3 +1,5 @@
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
 .box {
     width: 500px;
     margin: 200px 0;

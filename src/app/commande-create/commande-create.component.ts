@@ -61,6 +61,7 @@ export class CommandeCreateComponent implements OnInit {
   ngOnInit(): void {
     this.ligneCommande = [];
 
+
     this.produitService.getProduits().subscribe(
       (res) => {
         this.produits = res;
@@ -88,6 +89,9 @@ export class CommandeCreateComponent implements OnInit {
     );
 
     this.selectlignecommande = 0;
+
+    // if(localStorage.getItem("idclientcommande")!=null)
+      // this.selectclient = localStorage.getItem("idclientcommande")
   }
 
   formatNumber(num) {
@@ -588,7 +592,7 @@ export class CommandeCreateComponent implements OnInit {
           // window.open(blobURL);
 
           // pour afficher le fichier pdf
-          var byteCharacters = atob(res.document);
+          var byteCharacters = atob(this.editForm.facture.document);
           var byteNumbers = new Array(byteCharacters.length);
           for (var i = 0; i < byteCharacters.length; i++) {
             byteNumbers[i] = byteCharacters.charCodeAt(i);

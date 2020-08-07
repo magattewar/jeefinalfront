@@ -68,6 +68,14 @@
             <td class="text-right">
               <div class="btn-group">
                 <button
+                  type="submit"
+                  (click)="editer(commande)"
+                  class="btn btn-warning btn-sm"
+                >
+                  <i class="fa fa-edit"></i>
+                  <span class="d-none d-md-inline">Editer</span>
+                </button>
+                <button
                   *ngIf="commande.etat.id != 2"
                   type="submit"
                   (click)="valider(commande)"
